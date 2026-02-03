@@ -45,4 +45,31 @@ for i in range(1,4):
     contact[name] = phone
 print(f'입력받은 연락처는 {contact}입니다.')
 
-def add_numbers(number1):
+num = int(input("숫자 몇 까지 입력하시겠습니까? >>> "))
+
+number = []
+
+def add_numbers1(n):
+    for i in range(1, n + 1):
+        number.append(i)
+    print(number)
+
+def add_numbers2(n):
+    number = []
+    for i in range(1, n + 1):
+        number.append(i)
+    return number
+
+add_numbers1(num)
+print(add_numbers2(num))
+
+
+def add_numbers3(n, li):
+    result = []
+    for i in range(1, n + 1):
+        result.append(i)
+    result.extend(li)
+    return result
+
+hello = ['안', '녕', '하', '세', '요']
+print(add_numbers3(10, hello))
