@@ -1,35 +1,29 @@
-class MenuItem:
-    """각 메뉴 아이템들을 모델링합니다."""
-    def __init__(self, name, water, milk, coffee, cost):
-        self.name = name
-        self.cost = cost
-        self.ingredients = {
-            "water": water,
-            "milk": milk,
-            "coffee": coffee,
+class CoffeeMaker:
+    """커피를 만드는 기계를 모델링합니다"""
+    def __init__(self):
+        self.resources = {
+            "water": 300,
+            "milk": 200,
+            "coffee": 100,
         }
 
+    def report(self):
+        """모든 자원의 보고서를 출력합니다."""
+        print(f"물: {self.resources['water']}ml")
+        print(f"우유: {self.resources['milk']}ml")
+        print(f"커피: {self.resources['coffee']}g")
 
-class Menu:
-    """음료 메뉴를 모델링합니다."""
-    def __init__(self):
-        self.menu = [
-            MenuItem(name="latte", water=200, milk=150, coffee=24, cost=2.5),
-            MenuItem(name="espresso", water=50, milk=0, coffee=18, cost=1.5),
-            MenuItem(name="cappuccino", water=250, milk=50, coffee=24, cost=3),
-            MenuItem(name="카라멜마키아토", water=200, milk=60, coffee=26, cost=4),
-        ]
+    def is_resource_sufficient(self, drink):
+        """주문을 만들 수 있을 때 True를 반환하고, 재료가 부족하면 False를 반환합니다."""
+        can_make = True
+        for item in drink.ingredients:
+            if drink.ingredients[item] > self.resources[item]:
+                print(f"죄송합니다. {item}가(이) 충분하지 않습니다.")
+                can_make = False
+        return can_make
 
-    def get_items(self):
-        """이용 가능한 모든 메뉴 아이템의 이름을 반환합니다."""
-        options = ""
-        for item in self.menu:
-            options += f" {item.name} /"
-        return options
-
-    def find_drink(self, order_name):
-        """특정 음료를 이름으로 메뉴에서 검색합니다. 해당 아이템이 존재하면 반환하고, 그렇지 않으면 None을 반환합니다."""
-        for item in self.menu:
-            if item.name == order_name:
-                return item
-        print("죄송합니다. 해당 아이템은 이용할 수 없습니다.")
+    def make_coffee(self, order):
+        """필요한 재료를 자원에서 차감합니다."""
+        for item in order.ingredients:
+            self.resources[item] -= order.ingredients[item]
+        print(f"여기 {order.name} ☕️입니다. 맛있게 드세요!")
