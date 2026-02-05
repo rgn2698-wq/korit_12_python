@@ -191,10 +191,7 @@ class Circle(Shape):
         print(f'반지름이 {self.radius}인 {self.name}이 생성되었습니다.')
 
     def area(self):
-        result = 3.14
-        result *= self.radius
-        result *= self.radius
-        return result
+       return 3.14 * (self.radius ** 2)
 
     def draw(self):
         print(f'이름이 {self.name}인 원의 넓이는 {self.area()}입니다')
